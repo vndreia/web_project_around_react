@@ -1,35 +1,210 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from "react";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <body class="page">
+        <div class="popup popup-edit-profile">
+          {/*Popup para editar perfil*/}
+          <div class="popup__container">
+            <button class="popup__button-close popup__button-close-profile"></button>
+            <form class="form">
+              <h2 class="form__title">Editar perfil</h2>
+              <label for="name"></label>
+              <input
+                type="text"
+                class="form__input form__input-type-name"
+                placeholder="Nombre"
+                id="name"
+                minlength="2"
+                maxlength="200"
+                required
+                name="name"
+              />
+              <span id="name-error" class="popup__error-visible"></span>
+              <label for="about"></label>
+              <input
+                type="text"
+                class="form__input form__input-type-about"
+                placeholder="Acerca de mí"
+                id="about"
+                minlength="2"
+                maxlength="200"
+                required
+                name="about"
+              />
+              <span id="about-error" class="popup__error_visible"></span>
+              <button
+                disabled
+                type="submit"
+                class="form__button-save"
+                id="edit-profile-btn"
+              >
+                Guardar
+              </button>
+            </form>
+          </div>
+        </div>
+        {/*Popup para editar foto de perfil*/}
+        <div class="popup popup-edit-avatar">
+          <div class="popup__container">
+            <button class="popup__button-close popup__button-close-avatar"></button>
+            <form class="form form__edit-avatar">
+              <h2 class="form__title form__title-avatar">
+                Cambiar foto de perfil
+              </h2>
+              <label for="avatar"></label>
+              <input
+                type="url"
+                class="form__input form__input-avatar"
+                id="avatar"
+                placeholder="Enlace a la imagen"
+                required
+                name="avatar"
+              />
+              <span id="avatar-error" class="popup__error-visible"></span>
+              <button
+                type="submit"
+                class="form__button-save"
+                id="button-avatar"
+                disabled
+              >
+                Guardar
+              </button>
+            </form>
+          </div>
+        </div>
+        {/*Popup to add a new card*/}
+        <div class="popup popup-add-place">
+          <div class="popup__container">
+            <button class="popup__button-close popup__button-close-place"></button>
+            <form class="form form__add">
+              <h2 class="form__title form__title-place">Nuevo lugar</h2>
+              <label for="place"></label>
+              <input
+                type="text"
+                class="form__input form__input-place"
+                id="place"
+                placeholder="Título"
+                minlength="2"
+                maxlength="40"
+                required
+                name="place"
+              />
+              <span id="place-error" class="popup-error_visible"></span>
+              <label for="link"></label>
+              <input
+                type="url"
+                class="form__input form__input-link"
+                id="link"
+                placeholder="Enlace a la imagen"
+                minlength="2"
+                maxlength="200"
+                required
+                name="link"
+              />
+              <span id="link-error" class="popup__error-visible"></span>
+              <button
+                type="submit"
+                class="form__button-save"
+                disabled
+                id="addCard-btn"
+              >
+                Crear
+              </button>
+            </form>
+          </div>
+        </div>
+        {/*Popup para eliminar una card */}
+        <div class="popup popup-delete-card">
+          <div class="popup__container">
+            <button class="popup__button-close popup__button-close-delete-card"></button>
+            <div class="form form__delete-card">
+              <h2 class="form__title form__title-delete-card">
+                ¿Estás seguro/a?
+              </h2>
+              <button
+                class="form__button-save form__button-delete"
+                id="deleteCard-btn"
+              >
+                Sí
+              </button>
+            </div>
+          </div>
+        </div>
+        {/*Fin del popup para añadir una nueva card */}
+        <header class="header">
+          <img
+            src="images/logo.svg.svg"
+            class="header__logo"
+            alt="Around the world logo"
+          />
+        </header>
+        <main class="main">
+          <section class="main-bar">
+            <div class="main-bar__image-wrapper">
+              <img alt="explorer picture" class="main-bar__image" />
+              <span class="edit-icon"></span>
+            </div>
+            <div class="main-bar__container">
+              <div class="main-bar__text">
+                <h2 class="main-bar__title"></h2>
+                <p class="main-bar__paragraph"></p>
+              </div>
+              <button class="main-bar__button main-bar__button-type-form">
+                <img src="images/button-icon.svg.svg" alt="button-icon" />
+              </button>
+            </div>
+            <button class="main-bar__button main-bar__button-type-add">
+              <img src="images/add-button (1).svg" alt="add-button" />
+            </button>
+          </section>
+        </main>
+        <template id="card__template">
+          <div class="card__item">
+            <img class="card__image" src="" alt="" />
+            <button class="card__trash-button">
+              <img src="images/Trash.svg" alt="card__icon-trash" />
+            </button>
+            <div class="card__container-text">
+              <p class="card__image-text"></p>
+              <button class="card__like-button">
+                <svg
+                  class="heart-icon"
+                  width="21"
+                  height="19"
+                  viewBox="0 0 21 19"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M19.3764 9.78586C21.5412 7.54338 21.5412 3.90213 19.3764 1.68186C17.2115 -0.560619 13.6964 -0.560619 11.5315 1.68186L10.4812 2.792L9.43098 1.70406C7.26614 -0.560619 3.75096 -0.560619 1.60755 1.68186C0.557285 2.76979 0 4.21297 0 5.74496C0 7.27695 0.578719 8.72013 1.60755 9.80806L10.4812 19L19.3764 9.78586Z"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </template>
+        <section class="cards"></section>
+        {/*Aquí es donde se muestran las nuevas cards con la función de renderCards*/}
+        <footer class="footer">
+          <p class="footer__paragraph">&copy; 2025 Around the World</p>
+        </footer>
+        <div class="popup popup-image">
+          {" "}
+          {/*container*/}
+          <button class="popup__button-close popup__button-close-image"></button>
+          <div class="popup-image__content">
+            <img src=" " alt="Imagen ampliada" class="popup-image__img" />
+          </div>
+          <p class="popup-image__caption"></p>
+        </div>
+      </body>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

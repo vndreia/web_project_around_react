@@ -1,0 +1,249 @@
+.main {
+  max-width: 880px;
+}
+
+.main-bar {
+  display: flex;
+  flex-direction: row;
+  color: #ffffff;
+  max-width: 880px;
+  height: 120px;
+  margin: 40px auto 50px;
+  align-items: center;
+}
+
+.main-bar__image-wrapper {
+  width: 120px;
+  height: 120px;
+  position: relative; /* Contenedor relativo para el span */
+  display: inline-block; /** Asegura que el span se posicione relativo a este contenedor **/
+}
+
+.main-bar__image {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.main-bar__image:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.main-bar__image-wrapper:hover .edit-icon {
+  /*The space between the two class names means "descendant selector" - so .edit-icon must be a child (or nested child) of .main-bar__image-wrapper for this to work.*/
+  display: block;
+}
+
+.edit-icon {
+  width: 30px;
+  height: 30px;
+  background: url(../images/Vector.png) no-repeat center;
+  background-size: contain; /* Asegura que la imagen se ajuste al tamaño del span */
+  position: absolute; /*position relative to nearest relative container*/
+  display: none;
+  bottom: 40%;
+  left: 40%;
+}
+
+.main-bar__container {
+  width: 415px;
+  height: 77px;
+  display: flex;
+  flex-direction: row;
+  align-items: center; /* Centra verticalmente */
+  justify-content: space-between; /* Espacia los bloques */
+}
+
+.main-bar__text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 50px;
+  gap: 15px;
+}
+
+.main-bar__title,
+.main-bar__paragraph {
+  margin: 0;
+}
+
+.main-bar__title {
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 42px;
+  line-height: 48px;
+}
+
+.main-bar__paragraph {
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 100%;
+}
+
+.main-bar__button {
+  background-color: #000;
+  border: 1px solid white;
+}
+
+.main-bar__button-type-form {
+  width: 24px;
+  height: 24px;
+  margin: 0 90px 25px 0;
+}
+
+.main-bar__button-type-add {
+  width: 150px;
+  height: 50px;
+  border-radius: 2px;
+  margin: auto 0 auto 200px;
+}
+
+.main-gallery,
+.cards {
+  width: 880px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.main-gallery__container-item,
+.card__item {
+  width: 282px;
+  height: 361px;
+  border-radius: 10px;
+  background-color: #ffffff;
+  gap: 20px;
+}
+
+.main-gallery__image,
+.card__image {
+  width: 100%;
+  height: 282px;
+  object-fit: cover;
+  margin: 0;
+  border-radius: 10px 10px 0 0;
+}
+
+.main-gallery__text,
+.card__image-text {
+  font-family: "Inter", sans-serif;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 100%;
+  margin: 0;
+}
+
+.main-gallery__like-button,
+.card__like-button {
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.main-gallery__container-text,
+.card__container-text {
+  display: flex;
+  justify-content: space-between;
+  max-width: 246px;
+  margin: auto;
+}
+
+.card__image-text {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 200px;
+}
+.main-bar__button:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.card__like-button:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.card__like-button.active {
+  color: #000;
+}
+.card__like-button.active .heart-icon path {
+  fill: currentcolor; /* rellena el corazón con el color definido en .active */
+  stroke: currentcolor; /* para que el borde también cambie a ese color */
+}
+
+.card__trash-button {
+  background: transparent;
+  border: none;
+  position: relative;
+  bottom: 75%;
+  left: 84%;
+}
+
+.card__trash-button:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.heart-icon {
+  background: none;
+}
+
+@media screen and (max-width: 700px) {
+  .main-bar {
+    width: 282px;
+    width: 100%;
+    flex-direction: column;
+    margin-bottom: 40px;
+    height: auto;
+    gap: 30px;
+  }
+
+  .main-bar__container {
+    margin-left: 50px;
+  }
+
+  .main-bar__button-type-add {
+    width: 282px;
+    margin-right: 190px;
+  }
+
+  .main-bar__paragraph {
+    text-align: center;
+    margin-left: 60px;
+  }
+
+  .main-gallery,
+  .cards {
+    max-width: 282px;
+    grid-template-columns: 282px;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (min-width: 701px) and (max-width: 899px) {
+  .main-bar {
+    width: 660px;
+    box-sizing: border-box;
+  }
+
+  .main-bar__container {
+    gap: 80px;
+    width: auto;
+    height: 100%;
+  }
+
+  .main-bar__button-type-add {
+    margin: 0;
+  }
+
+  .main-gallery,
+  .cards {
+    width: 100%;
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+  }
+}

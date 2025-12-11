@@ -1,0 +1,191 @@
+.popup {
+  /*the overlay*/
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  align-content: center;
+  z-index: 1;
+  color: #000;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: none;
+}
+
+.popup__image-content {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.popup-image__img {
+  max-width: 75vw;
+  max-height: 75vh;
+}
+
+.popup-image__caption {
+  color: #fff;
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 100%;
+  position: relative;
+  right: 32%;
+}
+
+.popup_opened {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.popup-container {
+  display: flex;
+  width: auto;
+  height: auto;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+.popup__button-close {
+  /*Add card*/
+  background: url(../images/close-icon.svg) center no-repeat;
+  width: 50px;
+  height: 50px;
+  border: none;
+  position: relative;
+  left: 400px;
+}
+
+.popup__button-close-profile {
+  background: url(../images/close-icon.svg) center no-repeat;
+  width: 50px;
+  height: 50px;
+  border: none;
+  position: relative;
+  left: 400px;
+}
+
+.popup__button-close-image {
+  background: url(../images/close-icon.svg) center no-repeat;
+  width: 50px;
+  height: 50px;
+  border: none;
+  position: relative;
+  right: 10%;
+}
+
+.form,
+.form__add {
+  width: 430px;
+  height: 100%;
+  background-color: #fff;
+  color: #000;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  border-radius: 10px;
+  margin: auto;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.form__title,
+.form__title-place {
+  font-family: "Inter", sans-serif;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 100%;
+  margin: 35px 64px 0 36px;
+}
+
+.form__input {
+  width: 358px;
+  height: 28px;
+  border: none;
+  border-bottom: 1px solid #c4c4c4;
+  margin: 0 auto;
+}
+
+.form__input::placeholder {
+  font-family: "Inter", sans-serif;
+  color: #c4c4c4;
+}
+
+.form__button-save {
+  width: 358px;
+  height: 50px;
+  font-family: "Inter", sans-serif;
+  margin: 0 auto;
+  background-color: #000;
+  color: white;
+  border-radius: 2px;
+  border: none;
+  font-size: 18px;
+  display: block;
+}
+
+.form__button-save:hover {
+  background-color: gray;
+  cursor: pointer;
+}
+
+.popup__button-close:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.popup__error_visible {
+  /* Class to show the error message */
+  display: block;
+  color: red;
+  width: 200px;
+  align-self: center;
+}
+
+.form__button_disabled {
+  /*class applied when inputs in the form are invalid*/
+  background-color: #fff;
+  color: #a09f9f;
+  border: 1px solid #a09f9f;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.form__input-error {
+  /*class applied when the input is wrong*/
+  border-bottom: 2px solid red;
+  outline: none; /*outline removes the automatic field around the input set by default by the browser*/
+}
+
+@media screen and (max-width: 700px) {
+  .popup {
+    height: 100%;
+  }
+  .pop__up-container {
+    max-width: 282px;
+    height: auto;
+  }
+
+  .form,
+  .form__add {
+    width: 100%;
+    height: auto;
+  }
+
+  .form__input {
+    width: unset;
+  }
+
+  .form__button-save {
+    max-width: 238px;
+    margin: 40px auto;
+  }
+
+  .popup__button-close {
+    left: auto;
+  }
+}
