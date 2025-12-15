@@ -1,7 +1,17 @@
 import React from "react";
 
 const Header = () => {
-  return <div>Header</div>;
+  return (
+    <>
+      <header className="header">
+        <img
+          src="images/logo.svg.svg"
+          className="header__logo"
+          alt="Around the world logo"
+        />
+      </header>
+    </>
+  );
 };
 
 export default Header;
