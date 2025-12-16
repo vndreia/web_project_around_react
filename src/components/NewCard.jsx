@@ -1,4 +1,5 @@
 import React from "react";
+import ClosePopup from "../images/close-icon.svg";
 
 const NewCard = () => {
   return (
@@ -6,7 +7,9 @@ const NewCard = () => {
       {/*Popup to add a new card*/}
       <div className="popup popup-add-place">
         <div className="popup__container">
-          <button className="popup__button-close popup__button-close-place"></button>
+          <button className="popup__button-close popup__button-close-place">
+            {ClosePopup}
+          </button>
           <form className="form form__add">
             <h2 className="form__title form__title-place">Nuevo lugar</h2>
             <label for="place"></label>

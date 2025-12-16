@@ -11,7 +11,6 @@ function App() {
         <Header />
         <Main />
         <Footer />
-        {/*Aquí es donde se muestran las nuevas cards con la función de renderCards*/}
       </div>
     </>
   );
