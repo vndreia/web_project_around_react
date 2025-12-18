@@ -1,13 +1,13 @@
 import React from "react";
 import Card from "./Card.jsx";
 import EditIcon from "../images/button-icon.svg.svg";
-import EditAvatar from "./EditAvatar.jsx";
-import EditProfile from "./EditProfile.jsx";
-import ImagePopup from "./ImagePopup.jsx";
-import NewCard from "./NewCard.jsx";
-import RemoveCard from "./RemoveCard.jsx";
 import ProfilePic from "../images/explorer.png";
 import AddImage from "../images/add-button.svg";
+import EditAvatar from "./Popup/EditAvatar.jsx";
+import EditProfile from "./Popup/EditProfile.jsx";
+import ImagePopup from "./Popup/ImagePopup.jsx";
+import NewCard from "./Popup/NewCard.jsx";
+import RemoveCard from "./Popup/RemoveCard.jsx";
 
 const Main = () => {
   return (

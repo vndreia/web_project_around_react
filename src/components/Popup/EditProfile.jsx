@@ -1,6 +1,6 @@
 import React from "react";
 import ClosePopup from "../images/close-icon.svg";
-const EditProfile = () => {
+const EditProfile = ({ isEditPopupOpen, onSubmit }) => {
   return (
     <div className="popup popup-edit-profile">
       {/*Popup para editar perfil*/}
