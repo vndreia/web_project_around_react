@@ -1,5 +1,4 @@
 import React from "react";
-import ClosePopup from "../images/close-icon.svg";
 
 const EditAvatar = () => {
   return (
