@@ -1,10 +1,9 @@
 import React from "react";
-import ClosePopup from "../images/close-icon.svg";
 
 const Popup = (props) => {
-  const { title, children } = props;
+  const { children, isOpen } = props;
   return (
-    <div className="popup">
+    <div className={`popup ${isOpen ? "popup_opened" : ""}`}>
       {children}
       <div className="popup__container"></div>
     </div>

@@ -5,7 +5,7 @@ const EditProfile = ({ isEditPopupOpen, onSubmit }) => {
       {/*Popup para editar perfil*/}
       <div className="popup__container">
         <button className="popup__button-close popup__button-close-profile">
-          {ClosePopup}
+          {/*ClosePopup*/}
         </button>
         <form className="form">
           <h2 className="form__title">Editar perfil</h2>

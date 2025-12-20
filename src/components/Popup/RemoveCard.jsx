@@ -5,7 +5,7 @@ const RemoveCard = () => {
     <div className="popup popup-delete-card">
       <div className="popup__container">
         <button className="popup__button-close popup__button-close-delete-card">
-          {ClosePopup}
+          {/*ClosePopup*/}
         </button>
         <div className="form form__delete-card">
           <h2 className="form__title form__title-delete-card">

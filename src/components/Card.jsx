@@ -1,18 +1,23 @@
 import React from "react";
 import TrashIcon from "../images/Trash.svg";
 
-const Card = ({ title, imageSrc, index, handleDeleteCard, handleLike }) => {
+const Card = (props) => {
   {
     /*Here's where card receives props */
   }
+  console.log(props);
   return (
     <div className="card__item">
-      <img className="card__image" src={imageSrc} alt={title} />
+      <img
+        className="card__image"
+        src={props.card.link}
+        alt={props.card.name}
+      />
       <button className="card__trash-button">
         <img src={TrashIcon} alt="card__icon-trash" />
       </button>
       <div className="card__container-text">
-        <p className="card__image-text">{title}</p>
+        <p className="card__image-text">{props.card.name}</p>
         <button className="card__like-button">
           <svg
             className="heart-icon"

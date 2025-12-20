@@ -1,10 +1,23 @@
 import React from "react";
-
-const EditAvatar = () => {
+import ClosePopup from "../../images/close-icon.svg";
+const EditAvatar = (props) => {
+  const handleKeyDown = (e) => {
+    if (e.key === "Escape") {
+      console.log(e.key);
+      props.onClose();
+    }
+  };
   return (
-    <div className="popup popup-edit-avatar">
+    <div
+      className="popup popup_opened popup-edit-avatar "
+      onClick={props.onClose}
+    >
       <div className="popup__container">
-        <button className="popup__button-close popup__button-close-avatar">
+        <button
+          onClick={props.onClose}
+          onKeyDown={handleKeyDown}
+          className="popup__button-close popup__button-close-avatar"
+        >
           {ClosePopup}
         </button>
         <form className="form form__edit-avatar">

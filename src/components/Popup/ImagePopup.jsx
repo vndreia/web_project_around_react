@@ -4,7 +4,7 @@ const ImagePopup = () => {
   return (
     <div className="popup popup-image">
       <button className="popup__button-close popup__button-close-image">
-        {ClosePopup}
+        {/*ClosePopup*/}
       </button>
       <div className="popup-image__content">
         <img src=" " alt="Imagen ampliada" className="popup-image__img" />

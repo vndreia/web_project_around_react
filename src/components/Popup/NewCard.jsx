@@ -7,7 +7,7 @@ const NewCard = () => {
       <div className="popup popup-add-place">
         <div className="popup__container">
           <button className="popup__button-close popup__button-close-place">
-            {ClosePopup}
+            {/*ClosePopup*/}
           </button>
           <form className="form form__add">
             <h2 className="form__title form__title-place">Nuevo lugar</h2>
