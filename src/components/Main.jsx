@@ -12,13 +12,17 @@ import { initialCards } from "../utils";
 import Popup from "./Popup/Popup.jsx";
 
 const Main = () => {
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isPopupAvatarOpen, setIsPopupAvatarOpen] = useState(false);
+  const [isPopupProfileOpen, setIsPopupProfileOpen] = useState(false);
+  const [isPopupImageOpen, setIsPopupImageOpen] = useState(false);
+  const [isPopupNewCardOpen, setIsPopupNewCardOpen] = useState(false);
+  const [isPopupRemoveCardOpen, setIsPopupRemoveCardOpen] = useState(false);
   return (
     <main className="main">
       <section className="main-bar">
         <div className="main-bar__image-wrapper">
           <button
-            onClick={() => setIsPopupOpen(true)}
+            onClick={() => setIsPopupAvatarOpen(true)}
             style={{ border: "none", background: "none" }}
           >
             <img
@@ -35,35 +39,43 @@ const Main = () => {
             <p className="main-bar__paragraph"></p>
           </div>
           <button
-            onClick={() => setIsPopupOpen(true)}
+            onClick={() => setIsPopupProfileOpen(true)}
             className="main-bar__button main-bar__button-type-form"
           >
             <img src={EditIcon} alt="button-icon" />
           </button>
         </div>
-        <button className="main-bar__button main-bar__button-type-add">
+        <button
+          onClick={() => setIsPopupNewCardOpen(true)}
+          className="main-bar__button main-bar__button-type-add"
+        >
           <img src={AddImage} alt="add-button" />
         </button>
       </section>
       <section className="cards">
         {initialCards.map((card, index) => (
-          <Card key={index} card={card} />
+          <Card
+            onClick={() => setIsPopupImageOpen(true)}
+            onRemove={() => setIsPopupRemoveCardOpen(true)}
+            key={index}
+            card={card}
+          />
         ))}
       </section>
-      <Popup isOpen={isPopupOpen}>
-        <EditAvatar onClose={() => setIsPopupOpen(false)} />
+      <Popup isOpen={isPopupAvatarOpen}>
+        <EditAvatar onClose={() => setIsPopupAvatarOpen(false)} />
       </Popup>
-      <Popup>
-        <EditProfile onClose={() => setIsPopupOpen(false)} />
+      <Popup isOpen={isPopupProfileOpen}>
+        <EditProfile onClose={() => setIsPopupProfileOpen(false)} />
       </Popup>
-      <Popup>
-        <ImagePopup />
+      <Popup isOpen={isPopupImageOpen}>
+        <ImagePopup onClose={() => setIsPopupImageOpen(false)} />
       </Popup>
-      <Popup>
-        <NewCard />
+      <Popup isOpen={isPopupNewCardOpen}>
+        <NewCard onClose={() => setIsPopupNewCardOpen(false)} />
       </Popup>
-      <Popup>
-        <RemoveCard />
+      <Popup isOpen={isPopupRemoveCardOpen}>
+        <RemoveCard onClose={() => setIsPopupRemoveCardOpen(false)} />
       </Popup>
     </main>
   );
