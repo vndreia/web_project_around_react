@@ -16,8 +16,8 @@ const EditProfile = ({ onClose }) => {
           className="form__input form__input-type-name"
           placeholder="Nombre"
           id="name"
-          minlength="2"
-          maxlength="200"
+          minLength="2"
+          maxLength="200"
           required
           name="name"
         />
@@ -28,8 +28,8 @@ const EditProfile = ({ onClose }) => {
           className="form__input form__input-type-about"
           placeholder="Acerca de mí"
           id="about"
-          minlength="2"
-          maxlength="200"
+          minLength="2"
+          maxLength="200"
           required
           name="about"
         />

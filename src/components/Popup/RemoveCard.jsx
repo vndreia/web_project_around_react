@@ -1,9 +1,14 @@
 import React from "react";
 
-const RemoveCard = () => {
+const RemoveCard = ({ onClose }) => {
   return (
     <>
-      <button className="popup__button-close popup__button-close-delete-card"></button>
+      <button
+        onClick={() => {
+          onClose();
+        }}
+        className="popup__button-close popup__button-close-delete-card"
+      ></button>
       <div className="form form__delete-card">
         <h2 className="form__title form__title-delete-card">
           ¿Estás seguro/a?
