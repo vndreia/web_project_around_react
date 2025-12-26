@@ -9,7 +9,7 @@ const EditAvatar = ({ onClose }) => {
         }}
         className="popup__button-close popup__button-close-avatar"
       >
-        {ClosePopup}
+        <img src={ClosePopup} alt="Cerrar popup"></img>
       </button>
       <form className="form form__edit-avatar">
         <h2 className="form__title form__title-avatar">

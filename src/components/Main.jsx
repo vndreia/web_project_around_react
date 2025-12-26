@@ -17,6 +17,17 @@ const Main = () => {
   const [isPopupImageOpen, setIsPopupImageOpen] = useState(false);
   const [isPopupNewCardOpen, setIsPopupNewCardOpen] = useState(false);
   const [isPopupRemoveCardOpen, setIsPopupRemoveCardOpen] = useState(false);
+  const [cards, setCards] = useState(initialCards);
+  const onLike = (cardId) => {
+    setCards((prevCards) =>
+      prevCards.map((card) => {
+        if (card._id === cardId) {
+          return { ...card, isLiked: !card.isLiked };
+        }
+        return card;
+      })
+    );
+  };
   return (
     <main className="main">
       <section className="main-bar">
@@ -53,12 +64,14 @@ const Main = () => {
         </button>
       </section>
       <section className="cards">
-        {initialCards.map((card, index) => (
+        {cards.map((card, index) => (
           <Card
             onClick={() => setIsPopupImageOpen(true)}
             onRemove={() => setIsPopupRemoveCardOpen(true)}
             key={index}
             card={card}
+            setCards={setCards}
+            onLike={onLike}
           />
         ))}
       </section>

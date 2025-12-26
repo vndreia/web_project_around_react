@@ -1,7 +1,7 @@
 import React from "react";
 import TrashIcon from "../images/Trash.svg";
 
-const Card = ({ card, onClick, onClose, onRemove }) => {
+const Card = ({ card, onRemove, onClick, onLike }) => {
   return (
     <div className="card__item">
       <img
@@ -9,7 +9,6 @@ const Card = ({ card, onClick, onClose, onRemove }) => {
         src={card.link}
         alt={card.name}
         onClick={onClick}
-        onClose={onClose}
       />
       <button
         onClick={() => {
@@ -21,7 +20,12 @@ const Card = ({ card, onClick, onClose, onRemove }) => {
       </button>
       <div className="card__container-text">
         <p className="card__image-text">{card.name}</p>
-        <button className="card__like-button">
+        <button
+          onClick={() => onLike(card._id)}
+          className={`${
+            card.isLiked ? "card__like-button active" : "card__like-button"
+          }`}
+        >
           <svg
             className="heart-icon"
             width="21"
