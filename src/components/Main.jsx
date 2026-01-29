@@ -8,7 +8,7 @@ import EditProfile from "./Popup/EditProfile.jsx";
 import ImagePopup from "./Popup/ImagePopup.jsx";
 import NewCard from "./Popup/NewCard.jsx";
 import RemoveCard from "./Popup/RemoveCard.jsx";
-import { initialCards } from "../utils";
+import { initialCards } from "../utils/utils.js";
 import Popup from "./Popup/Popup.jsx";
 
 const Main = () => {
@@ -25,7 +25,7 @@ const Main = () => {
           return { ...card, isLiked: !card.isLiked };
         }
         return card;
-      })
+      }),
     );
   };
   return (
