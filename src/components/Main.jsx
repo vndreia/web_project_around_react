@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Card from "./Card.jsx";
 import EditIcon from "../images/button-icon.svg.svg";
 import ProfilePic from "../images/explorer.png";
@@ -8,8 +8,8 @@ import EditProfile from "./Popup/EditProfile.jsx";
 import ImagePopup from "./Popup/ImagePopup.jsx";
 import NewCard from "./Popup/NewCard.jsx";
 import RemoveCard from "./Popup/RemoveCard.jsx";
-import { initialCards } from "../utils/utils.js";
 import Popup from "./Popup/Popup.jsx";
+import { apiCall } from "../utils/api.js";
 
 const Main = () => {
   const [isPopupAvatarOpen, setIsPopupAvatarOpen] = useState(false);
@@ -17,7 +17,7 @@ const Main = () => {
   const [isPopupImageOpen, setIsPopupImageOpen] = useState(false);
   const [isPopupNewCardOpen, setIsPopupNewCardOpen] = useState(false);
   const [isPopupRemoveCardOpen, setIsPopupRemoveCardOpen] = useState(false);
-  const [cards, setCards] = useState(initialCards);
+  const [cards, setCards] = useState([]);
   const onLike = (cardId) => {
     setCards((prevCards) =>
       prevCards.map((card) => {
@@ -28,6 +28,22 @@ const Main = () => {
       }),
     );
   };
+
+  const getInitialCards = async () => {
+    try {
+      const data = await apiCall.makeRequest("GET", "cards");
+      setCards(data); //updates cards with the actual data from the API
+      console.log("Data received:", data);
+    } catch (error) {
+      console.log("Error fetching initial cards:", error);
+    }
+  };
+
+  useEffect(() => {
+    console.log("effect ran");
+    getInitialCards();
+  }, []);
+
   return (
     <main className="main">
       <section className="main-bar">
