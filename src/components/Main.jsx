@@ -10,6 +10,7 @@ import NewCard from "./Popup/NewCard.jsx";
 import RemoveCard from "./Popup/RemoveCard.jsx";
 import Popup from "./Popup/Popup.jsx";
 import { apiCall } from "../utils/api.js";
+import { useCurrentUser } from "./contexts/CurrentUserContext.jsx";
 
 const Main = () => {
   const [isPopupAvatarOpen, setIsPopupAvatarOpen] = useState(false);
@@ -18,6 +19,11 @@ const Main = () => {
   const [isPopupNewCardOpen, setIsPopupNewCardOpen] = useState(false);
   const [isPopupRemoveCardOpen, setIsPopupRemoveCardOpen] = useState(false);
   const [cards, setCards] = useState([]);
+  const { setCurrentUser, currentUser } = useCurrentUser(); //this is the line that will avoid prop drilling
+  //acces the current user info from context
+  //this destructures the values from the context
+
+  //like button handler
   const onLike = (cardId) => {
     setCards((prevCards) =>
       prevCards.map((card) => {
@@ -28,7 +34,7 @@ const Main = () => {
       }),
     );
   };
-
+  //fetch initial cards from API
   const getInitialCards = async () => {
     try {
       const data = await apiCall.makeRequest("GET", "cards");
@@ -40,9 +46,23 @@ const Main = () => {
   };
 
   useEffect(() => {
-    console.log("effect ran");
     getInitialCards();
   }, []);
+
+  //fetch user info from API
+  const fetchUserData = async () => {
+    try {
+      const data = await apiCall.makeRequest("GET", "users/me");
+      console.log("User data fetched:", data);
+      setCurrentUser(data); // Update the current user in context
+    } catch (error) {
+      console.log("Error fetching user data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchUserData();
+  }, [setCurrentUser]); //this is stable because setCurrentUser is the method, not the value
 
   return (
     <main className="main">
@@ -55,15 +75,19 @@ const Main = () => {
             <img
               alt="explorer picture"
               className="main-bar__image"
-              src={ProfilePic}
+              src={currentUser?.avatar || ProfilePic}
             />
           </button>
           <span className="edit-icon"></span>
         </div>
         <div className="main-bar__container">
           <div className="main-bar__text">
-            <h2 className="main-bar__title"></h2>
-            <p className="main-bar__paragraph"></p>
+            <h2 className="main-bar__title">
+              {currentUser?.name || "Explorer"}
+            </h2>
+            <p className="main-bar__paragraph">
+              {currentUser?.about || "About me"}
+            </p>
           </div>
           <button
             onClick={() => setIsPopupProfileOpen(true)}
@@ -109,5 +133,4 @@ const Main = () => {
     </main>
   );
 };
-
 export default Main;
