@@ -19,7 +19,7 @@ const Main = () => {
   const [isPopupNewCardOpen, setIsPopupNewCardOpen] = useState(false);
   const [isPopupRemoveCardOpen, setIsPopupRemoveCardOpen] = useState(false);
   const [cards, setCards] = useState([]);
-  const { setCurrentUser, currentUser } = useCurrentUser(); //this is the line that will avoid prop drilling
+  const { setCurrentUser, currentUser } = useCurrentUser();
   //acces the current user info from context
   //this destructures the values from the context
 
@@ -63,6 +63,25 @@ const Main = () => {
   useEffect(() => {
     fetchUserData();
   }, [setCurrentUser]); //this is stable because setCurrentUser is the method, not the value
+  //you don't have to specify this inside the array because it won't change between renders
+  //but React wants you to specify it to avoid warnings
+
+  //patch method updates user info
+  const editUserInfo = async (formData) => {
+    try {
+      const data = await apiCall.makeRequest("PATCH", "users/me", formData);
+      setUserInfo(data); // Update local userInfo state
+      setCurrentUser(data); // Update the current user in context
+    } catch (error) {
+      console.log("Error updating user info:", error);
+    }
+  };
+  //this time you don't need useEffect bc this function will be called when the user submits the form in EditProfile component
+
+  const handleSubmitUserInfo = (e) => {
+    e.preventDefault();
+    editUserInfo(userInfo);
+  };
 
   return (
     <main className="main">
@@ -133,4 +152,5 @@ const Main = () => {
     </main>
   );
 };
+
 export default Main;
