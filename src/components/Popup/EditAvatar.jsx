@@ -1,4 +1,6 @@
-import React from "react";
+import { apiCall } from "../../utils/api";
+import { useState } from "react";
+import { useCurrentUser } from "../contexts/CurrentUserContext.jsx";
 import ClosePopup from "../../images/close-icon.svg";
 const EditAvatar = ({ onClose }) => {
   return (

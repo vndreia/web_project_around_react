@@ -6,13 +6,14 @@ const EditProfile = ({ onClose }) => {
   const { setCurrentUser } = useCurrentUser();
   //we import the context because if the form updates the user info without the context, other components won't see the changes
   //the data is saved in the API but they stay out of sync with the rest of the app
+  //updates the global context when the user info is changed
 
   //patch method updates user info
   const editUserInfo = async (formData) => {
     try {
       const data = await apiCall.makeRequest("PATCH", "users/me", formData);
-      setUserInfo(data); // Update local userInfo state
-      setCurrentUser(data); // Update the current user in context
+      setUserInfo(data); // Updates local userInfo state
+      setCurrentUser(data); // Updates the current user in context
       onClose(); //close the popup after successful update
     } catch (error) {
       console.log("Error updating user info:", error);

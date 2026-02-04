@@ -24,15 +24,23 @@ const Main = () => {
   //this destructures the values from the context
 
   //like button handler
-  const onLike = (cardId) => {
-    setCards((prevCards) =>
-      prevCards.map((card) => {
-        if (card._id === cardId) {
-          return { ...card, isLiked: !card.isLiked };
-        }
-        return card;
-      }),
-    );
+  const onLike = async (cardId) => {
+    const isLiked = cards.find((card) => card._id === cardId)?.isLiked;
+    const method = isLiked ? "DELETE" : "PUT";
+    try {
+      const data = await apiCall.makeRequest(method, `cards/${cardId}/likes`);
+      console.log("Card like status:", data);
+      setCards((prevCards) =>
+        prevCards.map((card) => {
+          if (card._id === cardId) {
+            return data;
+          }
+          return card;
+        }),
+      );
+    } catch (error) {
+      console.log("Error liking the card:", error);
+    }
   };
   //fetch initial cards from API
   const getInitialCards = async () => {
@@ -65,23 +73,6 @@ const Main = () => {
   }, [setCurrentUser]); //this is stable because setCurrentUser is the method, not the value
   //you don't have to specify this inside the array because it won't change between renders
   //but React wants you to specify it to avoid warnings
-
-  //patch method updates user info
-  const editUserInfo = async (formData) => {
-    try {
-      const data = await apiCall.makeRequest("PATCH", "users/me", formData);
-      setUserInfo(data); // Update local userInfo state
-      setCurrentUser(data); // Update the current user in context
-    } catch (error) {
-      console.log("Error updating user info:", error);
-    }
-  };
-  //this time you don't need useEffect bc this function will be called when the user submits the form in EditProfile component
-
-  const handleSubmitUserInfo = (e) => {
-    e.preventDefault();
-    editUserInfo(userInfo);
-  };
 
   return (
     <main className="main">
