@@ -1,6 +1,4 @@
-import React from "react";
-
-const RemoveCard = ({ onClose }) => {
+const RemoveCard = ({ onClose, onDelete }) => {
   return (
     <>
       <button
@@ -16,6 +14,7 @@ const RemoveCard = ({ onClose }) => {
         <button
           className="form__button-save form__button-delete"
           id="deleteCard-btn"
+          onClick={() => onDelete()}
         >
           Sí
         </button>

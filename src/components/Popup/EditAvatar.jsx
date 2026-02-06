@@ -1,8 +1,12 @@
-import { apiCall } from "../../utils/api";
-import { useState } from "react";
-import { useCurrentUser } from "../contexts/CurrentUserContext.jsx";
+import { useRef } from "react";
 import ClosePopup from "../../images/close-icon.svg";
-const EditAvatar = ({ onClose }) => {
+const EditAvatar = ({ onClose, onChangeAvatar }) => {
+  const avatarRef = useRef();
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    onChangeAvatar(avatarRef.current.value);
+  }
   return (
     <>
       <button
@@ -13,7 +17,7 @@ const EditAvatar = ({ onClose }) => {
       >
         <img src={ClosePopup} alt="Cerrar popup"></img>
       </button>
-      <form className="form form__edit-avatar">
+      <form className="form form__edit-avatar" onSubmit={handleSubmit}>
         <h2 className="form__title form__title-avatar">
           Cambiar foto de perfil
         </h2>
@@ -25,14 +29,10 @@ const EditAvatar = ({ onClose }) => {
           placeholder="Enlace a la imagen"
           required
           name="avatar"
+          ref={avatarRef}
         />
         <span id="avatar-error" className="popup__error-visible"></span>
-        <button
-          type="submit"
-          className="form__button-save"
-          id="button-avatar"
-          disabled
-        >
+        <button type="submit" className="form__button-save" id="button-avatar">
           Guardar
         </button>
       </form>

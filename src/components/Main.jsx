@@ -20,28 +20,12 @@ const Main = () => {
   const [isPopupRemoveCardOpen, setIsPopupRemoveCardOpen] = useState(false);
   const [cards, setCards] = useState([]);
   const { setCurrentUser, currentUser } = useCurrentUser();
+  const [currentCardId, setCurrentCardId] = useState(null);
+  //this state is used to store the id of the card that we want to delete, so we can pass it to the RemoveCard component when we open the popup
+
   //acces the current user info from context
   //this destructures the values from the context
 
-  //like button handler
-  const onLike = async (cardId) => {
-    const isLiked = cards.find((card) => card._id === cardId)?.isLiked;
-    const method = isLiked ? "DELETE" : "PUT";
-    try {
-      const data = await apiCall.makeRequest(method, `cards/${cardId}/likes`);
-      console.log("Card like status:", data);
-      setCards((prevCards) =>
-        prevCards.map((card) => {
-          if (card._id === cardId) {
-            return data;
-          }
-          return card;
-        }),
-      );
-    } catch (error) {
-      console.log("Error liking the card:", error);
-    }
-  };
   //fetch initial cards from API
   const getInitialCards = async () => {
     try {
@@ -74,6 +58,53 @@ const Main = () => {
   //you don't have to specify this inside the array because it won't change between renders
   //but React wants you to specify it to avoid warnings
 
+  //like button handler
+  const onLike = async (cardId) => {
+    const isLiked = cards.find((card) => card._id === cardId)?.isLiked;
+    const method = isLiked ? "DELETE" : "PUT";
+    try {
+      const data = await apiCall.makeRequest(method, `cards/${cardId}/likes`);
+      console.log("Card like status:", data);
+      setCards((prevCards) =>
+        prevCards.map((card) => {
+          if (card._id === cardId) {
+            return data;
+          }
+          return card;
+        }),
+      );
+    } catch (error) {
+      console.log("Error liking the card:", error);
+    }
+  };
+
+  //deleting card function:
+  const handleCardRemove = async (cardId) => {
+    try {
+      await apiCall.makeRequest("DELETE", `cards/${cardId}`);
+      setCards((prevCards) => {
+        return prevCards.filter((card) => card._id !== cardId);
+        //selects the card with the matching id to be removed
+        //this is saying: remove the card with the matching id from the list of cards
+      });
+    } catch (error) {
+      console.log("Error removing the card:", error);
+    }
+  };
+
+  //avatar handler:
+  const handleAvatarUpdate = async (newAvatarUrl) => {
+    try {
+      const data = await apiCall.makeRequest("PATCH", "users/me/avatar", {
+        avatar: newAvatarUrl,
+      });
+      console.log("Avatar updated:", data);
+      setCurrentUser(data); //we call the provider method to globally change the avatar after fetching the new data from the API
+      setIsPopupAvatarOpen(false); // close popup here
+    } catch (error) {
+      console.log("Error updating avatar:", error);
+    }
+  };
   return (
     <main className="main">
       <section className="main-bar">
@@ -117,7 +148,10 @@ const Main = () => {
         {cards.map((card, index) => (
           <Card
             onClick={() => setIsPopupImageOpen(true)}
-            onRemove={() => setIsPopupRemoveCardOpen(true)}
+            onRemove={() => {
+              setIsPopupRemoveCardOpen(true);
+              setCurrentCardId(card._id);
+            }}
             key={index}
             card={card}
             setCards={setCards}
@@ -126,7 +160,10 @@ const Main = () => {
         ))}
       </section>
       <Popup isOpen={isPopupAvatarOpen}>
-        <EditAvatar onClose={() => setIsPopupAvatarOpen(false)} />
+        <EditAvatar
+          onClose={() => setIsPopupAvatarOpen(false)}
+          onChangeAvatar={handleAvatarUpdate}
+        />
       </Popup>
       <Popup isOpen={isPopupProfileOpen}>
         <EditProfile onClose={() => setIsPopupProfileOpen(false)} />
@@ -138,7 +175,17 @@ const Main = () => {
         <NewCard onClose={() => setIsPopupNewCardOpen(false)} />
       </Popup>
       <Popup isOpen={isPopupRemoveCardOpen}>
-        <RemoveCard onClose={() => setIsPopupRemoveCardOpen(false)} />
+        <RemoveCard
+          onClose={() => setIsPopupRemoveCardOpen(false)}
+          onDelete={() => {
+            if (currentCardId) {
+              //this checks currentCardId is not null or undefined
+              handleCardRemove(currentCardId);
+              setCurrentCardId(null); // clear after deletion
+              setIsPopupRemoveCardOpen(false); // close popup
+            }
+          }}
+        />
       </Popup>
     </main>
   );
