@@ -1,6 +1,4 @@
 const ImagePopup = ({ onClose, imageSrc }) => {
-  console.log("imageSrc:", imageSrc);
-
   return (
     <>
       <button

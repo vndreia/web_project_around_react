@@ -20,10 +20,8 @@ const Main = ({ cards, setCards, onLike, handleCardRemove }) => {
   const [isPopupRemoveCardOpen, setIsPopupRemoveCardOpen] = useState(false);
   const { setCurrentUser, currentUser } = useCurrentUser();
   const [currentCardId, setCurrentCardId] = useState(null);
-  const [imagePopupData, setImagePopupData] = useState(null);
-
   //this state is used to store the id of the card that we want to delete, so we can pass it to the RemoveCard component when we open the popup
-
+  const [imageSrc, setImageSrc] = useState(null);
   //fetch user info from API
   const fetchUserData = async () => {
     try {
@@ -53,6 +51,11 @@ const Main = ({ cards, setCards, onLike, handleCardRemove }) => {
     } catch (error) {
       console.log("Error updating avatar:", error);
     }
+  };
+  // When user clicks an image to enlarge it:
+  const handleOpenImagePopup = (imageSrc) => {
+    setImageSrc(imageSrc);
+    setIsPopupImageOpen(true);
   };
   return (
     <main className="main">
@@ -96,7 +99,7 @@ const Main = ({ cards, setCards, onLike, handleCardRemove }) => {
       <section className="cards">
         {cards.map((card, index) => (
           <Card
-            onClick={() => setIsPopupImageOpen(true)}
+            onClick={() => handleOpenImagePopup(card.link)}
             onRemove={() => {
               setIsPopupRemoveCardOpen(true);
               setCurrentCardId(card._id);
@@ -119,7 +122,10 @@ const Main = ({ cards, setCards, onLike, handleCardRemove }) => {
         <EditProfile onClose={() => setIsPopupProfileOpen(false)} />
       </Popup>
       <Popup isOpen={isPopupImageOpen}>
-        <ImagePopup onClose={() => setIsPopupImageOpen(false)} />
+        <ImagePopup
+          onClose={() => setIsPopupImageOpen(false)}
+          imageSrc={imageSrc}
+        />
       </Popup>
       <Popup isOpen={isPopupNewCardOpen}>
         <NewCard
