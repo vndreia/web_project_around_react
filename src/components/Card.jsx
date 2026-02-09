@@ -1,4 +1,3 @@
-import React from "react";
 import TrashIcon from "../images/Trash.svg";
 
 const Card = ({ card, onRemove, onClick, onLike }) => {

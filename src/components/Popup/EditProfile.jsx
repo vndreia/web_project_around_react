@@ -1,6 +1,6 @@
 import { apiCall } from "../../utils/api";
 import { useState } from "react";
-import { useCurrentUser } from "../../contexts/CurrentUserContext.jsx";
+import { useCurrentUser } from "../../contexts/CurrentUserContext.js";
 const EditProfile = ({ onClose }) => {
   const [userInfo, setUserInfo] = useState({ name: "", about: "" });
   const { setCurrentUser } = useCurrentUser();
