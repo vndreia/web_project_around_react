@@ -3,7 +3,7 @@ import Footer from "./Footer.jsx";
 import Header from "./Header.jsx";
 import Main from "./Main.jsx";
 import { apiCall } from "../utils/api.js";
-import { CurrentUserProvider } from "./contexts/CurrentUserContext.jsx";
+import { CurrentUserProvider } from "../contexts/CurrentUserContext.jsx";
 
 function App() {
   const [cards, setCards] = useState([]);
