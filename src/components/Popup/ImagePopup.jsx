@@ -1,6 +1,6 @@
-import React from "react";
+const ImagePopup = ({ onClose, imageSrc }) => {
+  console.log("imageSrc:", imageSrc);
 
-const ImagePopup = ({ onClose }) => {
   return (
     <>
       <button
@@ -12,7 +12,11 @@ const ImagePopup = ({ onClose }) => {
         {/*ClosePopup*/}
       </button>
       <div className="popup-image__content">
-        <img src=" " alt="Imagen ampliada" className="popup-image__img" />
+        <img
+          src={imageSrc}
+          alt="Imagen ampliada"
+          className="popup-image__img"
+        />
       </div>
       <p className="popup-image__caption"></p>
     </>

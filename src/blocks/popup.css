@@ -14,7 +14,7 @@
   display: none;
 }
 
-.popup__image-content {
+.popup-image-content {
   display: flex;
   justify-content: center;
   position: relative;

@@ -41,7 +41,7 @@ const EditProfile = ({ onClose }) => {
       ></button>
       <form className="form" onSubmit={handleSubmitUserInfo}>
         <h2 className="form__title">Editar perfil</h2>
-        <label for="name"></label>
+        <label htmlFor="name"></label>
         <input
           type="text"
           className="form__input form__input-type-name"
@@ -55,7 +55,7 @@ const EditProfile = ({ onClose }) => {
           onChange={inputHandleChange}
         />
         <span id="name-error" className="popup__error-visible"></span>
-        <label for="about"></label>
+        <label htmlFor="about"></label>
         <input
           type="text"
           className="form__input form__input-type-about"

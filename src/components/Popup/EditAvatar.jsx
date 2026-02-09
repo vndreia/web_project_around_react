@@ -21,7 +21,7 @@ const EditAvatar = ({ onClose, onChangeAvatar }) => {
         <h2 className="form__title form__title-avatar">
           Cambiar foto de perfil
         </h2>
-        <label for="avatar"></label>
+        <label htmlFor="avatar"></label>
         <input
           type="url"
           className="form__input form__input-avatar"

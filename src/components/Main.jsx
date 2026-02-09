@@ -12,34 +12,17 @@ import Popup from "./Popup/Popup.jsx";
 import { apiCall } from "../utils/api.js";
 import { useCurrentUser } from "./contexts/CurrentUserContext.jsx";
 
-const Main = () => {
+const Main = ({ cards, setCards, onLike, handleCardRemove }) => {
   const [isPopupAvatarOpen, setIsPopupAvatarOpen] = useState(false);
   const [isPopupProfileOpen, setIsPopupProfileOpen] = useState(false);
   const [isPopupImageOpen, setIsPopupImageOpen] = useState(false);
   const [isPopupNewCardOpen, setIsPopupNewCardOpen] = useState(false);
   const [isPopupRemoveCardOpen, setIsPopupRemoveCardOpen] = useState(false);
-  const [cards, setCards] = useState([]);
   const { setCurrentUser, currentUser } = useCurrentUser();
   const [currentCardId, setCurrentCardId] = useState(null);
+  const [imagePopupData, setImagePopupData] = useState(null);
+
   //this state is used to store the id of the card that we want to delete, so we can pass it to the RemoveCard component when we open the popup
-
-  //acces the current user info from context
-  //this destructures the values from the context
-
-  //fetch initial cards from API
-  const getInitialCards = async () => {
-    try {
-      const data = await apiCall.makeRequest("GET", "cards");
-      setCards(data); //updates cards with the actual data from the API
-      console.log("Data received:", data);
-    } catch (error) {
-      console.log("Error fetching initial cards:", error);
-    }
-  };
-
-  useEffect(() => {
-    getInitialCards();
-  }, []);
 
   //fetch user info from API
   const fetchUserData = async () => {
@@ -57,40 +40,6 @@ const Main = () => {
   }, [setCurrentUser]); //this is stable because setCurrentUser is the method, not the value
   //you don't have to specify this inside the array because it won't change between renders
   //but React wants you to specify it to avoid warnings
-
-  //like button handler
-  const onLike = async (cardId) => {
-    const isLiked = cards.find((card) => card._id === cardId)?.isLiked;
-    const method = isLiked ? "DELETE" : "PUT";
-    try {
-      const data = await apiCall.makeRequest(method, `cards/${cardId}/likes`);
-      console.log("Card like status:", data);
-      setCards((prevCards) =>
-        prevCards.map((card) => {
-          if (card._id === cardId) {
-            return data;
-          }
-          return card;
-        }),
-      );
-    } catch (error) {
-      console.log("Error liking the card:", error);
-    }
-  };
-
-  //deleting card function:
-  const handleCardRemove = async (cardId) => {
-    try {
-      await apiCall.makeRequest("DELETE", `cards/${cardId}`);
-      setCards((prevCards) => {
-        return prevCards.filter((card) => card._id !== cardId);
-        //selects the card with the matching id to be removed
-        //this is saying: remove the card with the matching id from the list of cards
-      });
-    } catch (error) {
-      console.log("Error removing the card:", error);
-    }
-  };
 
   //avatar handler:
   const handleAvatarUpdate = async (newAvatarUrl) => {
@@ -156,6 +105,7 @@ const Main = () => {
             card={card}
             setCards={setCards}
             onLike={onLike}
+            onDelete={handleCardRemove}
           />
         ))}
       </section>
@@ -172,7 +122,10 @@ const Main = () => {
         <ImagePopup onClose={() => setIsPopupImageOpen(false)} />
       </Popup>
       <Popup isOpen={isPopupNewCardOpen}>
-        <NewCard onClose={() => setIsPopupNewCardOpen(false)} />
+        <NewCard
+          onClose={() => setIsPopupNewCardOpen(false)}
+          setCards={setCards} //this is what passes the state update function to the NewCard component, so we can update the cards state after creating a new card
+        />
       </Popup>
       <Popup isOpen={isPopupRemoveCardOpen}>
         <RemoveCard
