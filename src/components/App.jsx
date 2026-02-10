@@ -4,6 +4,7 @@ import Header from "./Header.jsx";
 import Main from "./Main.jsx";
 import { apiCall } from "../utils/api.js";
 import { CurrentUserProvider } from "./CurrentUserProvider.jsx";
+import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 
 function App() {
   const [cards, setCards] = useState([]);

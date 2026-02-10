@@ -11,6 +11,7 @@ import RemoveCard from "./Popup/RemoveCard.jsx";
 import Popup from "./Popup/Popup.jsx";
 import { apiCall } from "../utils/api.js";
 import { useCurrentUser } from "./CurrentUserProvider.jsx";
+import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 
 const Main = ({ cards, setCards, onLike, handleCardRemove }) => {
   const [isPopupAvatarOpen, setIsPopupAvatarOpen] = useState(false);
