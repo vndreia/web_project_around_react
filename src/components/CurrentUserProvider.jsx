@@ -1,13 +1,5 @@
-import { createContext, useState, useContext } from "react";
-
-//create context creates the box
-//usecontext opens the box and is what you can use in the custom hook function
-
-// 1. Create a context for the current user
-export const CurrentUserContext = createContext();
-
-// 2. Create a provider component saved in CurrentUserProvider
-//This saves the context object and allows child components to access it
+import { useState, useContext } from "react";
+import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 export const CurrentUserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null); //// STATE is created here
   return (
