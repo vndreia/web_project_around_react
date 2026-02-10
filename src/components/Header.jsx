@@ -1,12 +1,11 @@
 import React from "react";
-import LogoHeader from "../images/logo.svg.svg";
 
 const Header = () => {
   return (
     <>
       <header className="header">
         <img
-          src={LogoHeader}
+          src="images/logo.svg"
           className="header__logo"
           alt="Around the world logo"
         />
